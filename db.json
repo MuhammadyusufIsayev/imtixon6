@@ -1,20 +1,20 @@
 {
   "products": [
     {
-      "id": "55a7",
-      "title": "124rerg",
-      "brand": "qwerty",
-      "article": "00900",
-      "price": "4555",
-      "disCount": "34"
+      "id": "7a3f",
+      "title": "salom",
+      "brand": "Nikeee",
+      "article": "1234",
+      "price": 1200,
+      "disCount": 11000
     },
     {
-      "id": "c272",
-      "title": "hello",
-      "brand": "hi",
-      "article": "1123333",
-      "price": "100",
-      "disCount": 0
+      "id": "aa72",
+      "title": "bcbcxb",
+      "brand": "rgreg",
+      "article": "1324234",
+      "price": 11242412,
+      "disCount": 21342
     }
   ]
 }

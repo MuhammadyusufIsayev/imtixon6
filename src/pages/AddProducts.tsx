@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const AddProducts = () => {
-  const [title, setTitle] = useState('');
-  const [brand, setBrand] = useState('');
-  const [article, setArticle] = useState('');
-  const [price, setPrice] = useState(0);
-  const [disCount, setDisCount] = useState(0);
+const AddProducts: React.FC = () => {
+  const [title, setTitle] = useState<string>('');
+  const [brand, setBrand] = useState<string>('');
+  const [article, setArticle] = useState<string>('');
+  const [price, setPrice] = useState<number>(0);
+  const [disCount, setDisCount] = useState<number>(0);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
   
     if (!title || !brand || !article || !price) {
@@ -17,8 +17,7 @@ const AddProducts = () => {
       return;
     }
 
-    const discountValue = disCount === '' ? 0 : disCount;
-
+    const discountValue = disCount === 0 ? 0 : disCount;
   
     const data = {
       title,
@@ -29,7 +28,7 @@ const AddProducts = () => {
     };
   
     try {
-      await axios.post('http://localhost:5000/products', data);
+      await axios.post('http://localhost:3000/products', data);
       console.log('Product added successfully');
       setTitle('');
       setBrand('');
@@ -40,9 +39,12 @@ const AddProducts = () => {
       console.error('Error:', error);
     }
   };
-  
-  
-  
+
+  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
+  const handleBrandChange = (e: ChangeEvent<HTMLInputElement>) => setBrand(e.target.value);
+  const handleArticleChange = (e: ChangeEvent<HTMLInputElement>) => setArticle(e.target.value);
+  const handlePriceChange = (e: ChangeEvent<HTMLInputElement>) => setPrice(parseFloat(e.target.value));
+  const handleDisCountChange = (e: ChangeEvent<HTMLInputElement>) => setDisCount(parseFloat(e.target.value));
   
   return (
     <div>
@@ -58,7 +60,7 @@ const AddProducts = () => {
             <div className='top'>
               <div>
                 <label>Название</label>
-                <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+                <input type="text" value={title} onChange={handleTitleChange} />
               </div>
             </div>
             <div className='center'>
@@ -66,13 +68,13 @@ const AddProducts = () => {
                 <label>
                   Бренд
                 </label>
-                <input type="text" value={brand} onChange={(e) => setBrand(e.target.value)} />
+                <input type="text" value={brand} onChange={handleBrandChange} />
               </div>
               <div>
                 <label>
                   Артикул производителя *
                 </label>
-                <input type="number" value={article} onChange={(e) => setArticle(e.target.value)} />
+                <input type="text" value={article} onChange={handleArticleChange} />
               </div>
             </div>
             <div className='bottom'>
@@ -80,13 +82,13 @@ const AddProducts = () => {
                 <label>
                   Цена
                 </label>
-                <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} />
+                <input type="number" value={price} onChange={handlePriceChange} />
               </div>
               <div>
                 <label>
                   Цена со скидкой
                 </label>
-                <input type="number" value={disCount} onChange={(e) => setDisCount(e.target.value)} />
+                <input type="number" value={disCount} onChange={handleDisCountChange} />
               </div>
             </div>
               <button type="submit" className='btn-tovar'>Сохранить</button>
